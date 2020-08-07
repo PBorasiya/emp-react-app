@@ -7,10 +7,9 @@ class EmployeeComponent extends Component{
         super(props)
         this.state={
             id: this.props.match.params.id,
-            username : "Vishoo",
-            description : '',
-            completed : false,
-            //targetDate : moment(new Date()).utc().format('YYYY-MM-DD')
+            firstname : '',
+            lastname : '',
+            email : ''
         }
         // this.onSubmit =  this.onSubmit.bind(this)
         // this.validate =  this.validate.bind(this)
@@ -32,24 +31,25 @@ class EmployeeComponent extends Component{
     //     )
     // }
 
-    // validate(values){
-    //     let errors = {}
-    //     if(!values.description){
-    //         errors.description = "Enter a descriptin"
-    //     }else if(values.description.length < 5){
-    //         errors.description = "Enter atleast 5 characters"
-    //     }
+    validate(values){
+        let errors = {}
+        if(!values.firstname){
+            errors.firstname = "Enter first name"
+        }
 
-    //     if(!values.targetDate){
-    //         errors.targetDate = "Enter date"
-    //     }else if(!moment(values.targetDate).isValid){
-    //         errors.targetDate = "enter valid target date"
-    //     }
-    //     return errors
-    // }
+        if(!values.lastname){
+            errors.lastname = "Enter last name"
+        }
 
-    // onSubmit(values){
+        if(!values.email){
+            errors.email = "Enter Email"
+        }
+        
+        return errors
+    }
 
+    onSubmit(values){
+        console.log(values)
     //     let username = AuthenticationService.getLoggedInUsername()
     //     let todo = {
     //         id : this.state.id,
@@ -64,18 +64,18 @@ class EmployeeComponent extends Component{
     //          TodoDataService.updateTodo(username,this.state.id,todo)
     //          .then(() =>  this.props.history.push('/todos'))
     //     }
-    // }
+    }
   
     render(){
 
-        let {description,targetDate} = this.state
+        let {firstname,lastname, email} = this.state
 
         return (
             <div>
                 <h1>Employee</h1>
                 <div className="container">
                     <Formik 
-                            initialValues={{description,targetDate}}
+                            initialValues={{firstname,lastname, email}}
                             onSubmit ={this.onSubmit}
                             validateOnBlur = {false}
                             validateOnChange = {false}
@@ -85,8 +85,9 @@ class EmployeeComponent extends Component{
                         {
                             (props) => (
                                <Form>
-                                   {/* <ErrorMessage name="description" component="div" className="alert alert-warning"/>
-                                   <ErrorMessage name="targetDate" component="div" className="alert alert-warning"/> */}
+                                   <ErrorMessage name="firstname" component="div" className="alert alert-warning"/>
+                                   <ErrorMessage name="lastname" component="div" className="alert alert-warning"/>
+                                   <ErrorMessage name="email" component="div" className="alert alert-warning"/>
 
                                     <fieldset className="form-group">
                                         <Field className="form-control" type="text" name="firstname" placeholder="e.g. John"/>
