@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import EmployeeComponent from './components/EmployeeComponent';
+import EmployeeApp from './components/EmployeeApp';
 import './bootstrap.css'
 
 
 function App() {
   return (
     <div className="App">
-      <EmployeeComponent/>
+      <EmployeeApp/>
     </div>
   );
 }
