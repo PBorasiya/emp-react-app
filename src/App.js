@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import EmployeeComponent from './components/EmployeeComponent';
+import './bootstrap.css'
 
 
 function App() {
