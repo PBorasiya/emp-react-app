@@ -16,9 +16,9 @@ class ListEmployeesComponent  extends Component{
             
             message : null
         }
-        // this.deleteTodoClicked = this.deleteTodoClicked.bind(this)
-        // this.updateTodoClicked = this.updateTodoClicked.bind(this)
-        // this.refreshTodos = this.refreshTodos.bind(this)
+        this.deleteEmployeeClicked = this.deleteEmployeeClicked.bind(this)
+        this.updateEmployeeClicked = this.updateEmployeeClicked.bind(this)
+        this.refreshEmployees = this.refreshEmployees.bind(this)
         this.addEmployeClicked = this.addEmployeClicked.bind(this)
     }
 
