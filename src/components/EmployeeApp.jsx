@@ -2,13 +2,16 @@ import React ,{ Component } from 'react'
 import {Route, BrowserRouter as Router, Switch} from 'react-router-dom'
 import ListEmployeesComponent from './ListEmployeesComponent'
 import EmployeeComponent from './EmployeeComponent'
+import HeaderComponent from './HeaderComponent'
 
 
 class EmployeeApp extends Component{
     render(){
         return (
             <div className="EmployeeApp">
+                
                 <Router>
+                <HeaderComponent/>
                     {/* <HeaderComponent/> */}
                         <Switch>
                             <Route path="/" exact component={ListEmployeesComponent}/>
