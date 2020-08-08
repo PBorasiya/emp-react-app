@@ -1,44 +1,49 @@
 import React ,{ Component } from 'react'
 import {Formik, Form, Field, ErrorMessage} from 'formik'
+import EmployeeDataService from '../RESTAPIS/EmployeeDataService.js'
 
 class EmployeeComponent extends Component{
     
     constructor(props){
+        
         super(props)
         this.state={
             id: this.props.match.params.id,
-            firstname : '',
-            lastname : '',
+            firstName : '',
+            lastName : '',
             email : ''
         }
-        // this.onSubmit =  this.onSubmit.bind(this)
-        // this.validate =  this.validate.bind(this)
+        
+        this.onSubmit =  this.onSubmit.bind(this)
+        this.validate =  this.validate.bind(this)
     }
     
 
-    // componentDidMount(){
+    componentDidMount(){
 
-    //     if(this.state.id === -1){
-    //         return
-    //     }
-    //     let username = AuthenticationService.getLoggedInUsername()
-    //     TodoDataService.retrieveTodoById(username,this.state.id)
-    //     .then(
-    //         response =>  this.setState({
-    //             description : response.data.description,
-    //             targetDate : moment(response.data.targetDate).format('YYYY-MM-DD')
-    //         })
-    //     )
-    // }
+        if(this.state.id === -1){
+            return
+        }
+        
+        EmployeeDataService.retrieveEmployeeById(this.state.id)
+        .then(
+            response =>  this.setState({
+                id : response.data.id,
+                firstName : response.data.firstName,
+                lastName : response.data.lastName,
+                email : response.data.email
+            })
+        )
+    }
 
     validate(values){
         let errors = {}
-        if(!values.firstname){
-            errors.firstname = "Enter first name"
+        if(!values.firstName){
+            errors.firstName = "Enter first name"
         }
 
-        if(!values.lastname){
-            errors.lastname = "Enter last name"
+        if(!values.lastName){
+            errors.lastName = "Enter last name"
         }
 
         if(!values.email){
@@ -49,33 +54,38 @@ class EmployeeComponent extends Component{
     }
 
     onSubmit(values){
-        console.log(values)
-    //     let username = AuthenticationService.getLoggedInUsername()
-    //     let todo = {
-    //         id : this.state.id,
-    //         description : values.description,
-    //         username : username,
-    //         targetDate : values.targetDate,                                        
-    //     }
-    //     if(this.state.id === -1){
-    //         TodoDataService.createTodo(username, todo)
-    //         .then(() =>  this.props.history.push('/todos'))
-    //     }else{
-    //          TodoDataService.updateTodo(username,this.state.id,todo)
-    //          .then(() =>  this.props.history.push('/todos'))
-    //     }
+        
+        let employee = {
+            id : values.id,
+            firstName : values.firstName,
+            lastName : values.lastName,
+            email : values.email,                                       
+        }
+       
+        if (this.state.id === -1 ){
+            console.log("success")
+            EmployeeDataService.createEmployee(employee)
+            .then(() =>  this.props.history.push('/employees'))
+            
+        }else{
+            console.log(employee)
+            console.log("hitting this")
+            EmployeeDataService.updateEmployee(employee)
+            .then(() =>  this.props.history.push('/employees'))
+        }
     }
   
     render(){
 
-        let {firstname,lastname, email} = this.state
+       
+        let {id,firstName,lastName, email} = this.state
 
         return (
             <div>
                 <h1>Employee</h1>
                 <div className="container">
                     <Formik 
-                            initialValues={{firstname,lastname, email}}
+                            initialValues={{id,firstName,lastName, email}}
                             onSubmit ={this.onSubmit}
                             validateOnBlur = {false}
                             validateOnChange = {false}
@@ -85,18 +95,18 @@ class EmployeeComponent extends Component{
                         {
                             (props) => (
                                <Form>
-                                   <ErrorMessage name="firstname" component="div" className="alert alert-warning"/>
-                                   <ErrorMessage name="lastname" component="div" className="alert alert-warning"/>
+                                   <ErrorMessage name="firstName" component="div" className="alert alert-warning"/>
+                                   <ErrorMessage name="lastName" component="div" className="alert alert-warning"/>
                                    <ErrorMessage name="email" component="div" className="alert alert-warning"/>
 
-                                    <fieldset className="form-group">
-                                        <Field className="form-control" type="text" name="firstname" placeholder="e.g. John"/>
+                                    <fieldset className="form-group" >
+                                        <Field className="form-control" type="text" name="firstName"  placeholder="e.g. John"/>
                                     </fieldset>
                                     <fieldset className="form-group">
-                                        <Field className="form-control" type="text" name="lastname" placeholder="e.g. Doe"/>
+                                        <Field className="form-control" type="text" name="lastName"  placeholder="e.g. Doe"/>
                                     </fieldset>
                                     <fieldset className="form-group">
-                                        <Field className="form-control" type="text" name="email" placeholder="e.g. abc@example.com"/>
+                                        <Field className="form-control" type="text" name="email"  placeholder="e.g. abc@example.com"/>
                                     </fieldset>
                                     <button className="btn btn-success" type="submit">Submit</button>
                                </Form>
