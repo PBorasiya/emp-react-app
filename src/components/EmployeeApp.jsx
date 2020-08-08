@@ -3,6 +3,7 @@ import {Route, BrowserRouter as Router, Switch} from 'react-router-dom'
 import ListEmployeesComponent from './ListEmployeesComponent'
 import EmployeeComponent from './EmployeeComponent'
 import HeaderComponent from './HeaderComponent'
+import FooterComponent from './FooterComponent'
 
 
 class EmployeeApp extends Component{
@@ -26,6 +27,7 @@ class EmployeeApp extends Component{
                             <Route component={ErrorComponent}/>*/}
                         </Switch>
                     {/* <FooterComponent/> */}
+                    <FooterComponent/>
                 </Router>
                 {/*<LoginComponent/>
                 <WelcomeComponent/>*/}
